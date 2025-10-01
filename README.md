@@ -1,5 +1,7 @@
 # Adventus React - Rede Social para Desenvolvedores
 
+Developed by Lucas Matheus Matos de Lima, Felipe Gabriel Loose, Victor Macedo Cruz Belo.
+
 Versão React do projeto Adventus com TailwindCSS.
 
 ## 🚀 Como executar
