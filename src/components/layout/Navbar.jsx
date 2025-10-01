@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
 
   return (
     <nav className="fixed top-0 left-0 w-full flex items-center justify-between px-8 py-4 bg-white/95 backdrop-blur-sm border-b border-slate-200 z-50 shadow-sm">
@@ -27,16 +26,23 @@ const Navbar = () => {
             Início
           </a>
         </li>
-        {isHomePage && (
-          <li>
-            <a
-              href="#sobre"
-              className="block text-slate-800 font-medium hover:text-blue-800 hover:bg-blue-800/10 px-4 py-2 rounded-md transition-all duration-200"
-            >
-              Sobre
-            </a>
-          </li>
-        )}
+        <li>
+          <a
+            href="/posts"
+            className="block text-slate-800 font-medium hover:text-blue-800 hover:bg-blue-800/10 px-4 py-2 rounded-md transition-all duration-200"
+          >
+            Posts
+          </a>
+        </li>
+        <li>
+          <a
+            href="/amizades"
+            className="block text-slate-800 font-medium hover:text-blue-800 hover:bg-blue-800/10 px-4 py-2 rounded-md transition-all duration-200"
+          >
+            Amizades
+          </a>
+        </li>
+
         <li>
           <a
             href="/faq"
