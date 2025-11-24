@@ -15,7 +15,6 @@ Versão React do projeto Adventus com TailwindCSS.
    - Crie um projeto no [Supabase](https://supabase.com)
    - Copie `.env.example` para `.env`
    - Adicione suas credenciais do Supabase no arquivo `.env`
-   - Execute o SQL em `supabase-schema.sql` no SQL Editor do Supabase
 
 3. **Copiar imagens:**
    Copie as imagens da pasta `img/` original para `public/img/`:
