@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "../lib/supabase";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import Card from "../components/ui/Card";
@@ -13,9 +14,35 @@ const Contato = () => {
     message: "",
   });
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Mensagem enviada com sucesso!");
+    setLoading(true);
+    
+    try {
+      const { error } = await supabase
+        .from('contacts')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message
+          }
+        ]);
+      
+      if (error) throw error;
+      
+      setSuccess(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSuccess(false), 5000);
+    } catch (error) {
+      alert('Erro ao enviar mensagem: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -108,10 +135,10 @@ const Contato = () => {
   ];
 
   return (
-    <div className="font-inter text-slate-800 bg-slate-100">
+    <div className="font-inter text-slate-800 bg-slate-100 min-h-screen flex flex-col">
       <Navbar />
 
-      <main>
+      <main className="flex-1">
         <div className="max-w-6xl mx-auto px-8 py-32 text-center">
           <h1 className="text-4xl lg:text-6xl font-bold text-slate-800 mb-4">
             Entre em Contato
@@ -180,7 +207,15 @@ const Contato = () => {
                   />
                 </div>
 
-                <Button type="submit">Enviar Mensagem</Button>
+                {success && (
+                  <div className="text-green-600 text-sm text-center p-3 bg-green-50 rounded-lg">
+                    Mensagem enviada com sucesso!
+                  </div>
+                )}
+
+                <Button type="submit" disabled={loading}>
+                  {loading ? 'Enviando...' : 'Enviar Mensagem'}
+                </Button>
               </form>
             </Card>
 

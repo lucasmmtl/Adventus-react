@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   return (
     <nav className="fixed top-0 left-0 w-full flex items-center justify-between px-8 py-4 bg-white/95 backdrop-blur-sm border-b border-slate-200 z-50 shadow-sm">
@@ -42,6 +45,14 @@ const Navbar = () => {
             Amizades
           </a>
         </li>
+        <li>
+          <a
+            href="/encontrar-pessoas"
+            className="block text-slate-800 font-medium hover:text-blue-800 hover:bg-blue-800/10 px-4 py-2 rounded-md transition-all duration-200"
+          >
+            Encontrar Pessoas
+          </a>
+        </li>
 
         <li>
           <a
@@ -62,44 +73,86 @@ const Navbar = () => {
       </ul>
 
       <div className="relative">
-        <button
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="bg-transparent border-none p-0 cursor-pointer"
-        >
-          <img
-            src="/img/usuario.png"
-            alt="Menu do usuário"
-            className="w-10 h-10 rounded-full object-cover cursor-pointer border-2 border-slate-200 hover:border-blue-800 transition-colors duration-200"
-          />
-        </button>
+        {user ? (
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="bg-transparent border-none p-0 cursor-pointer"
+          >
+            <img
+              src="/img/usuario.png"
+              alt="Menu do usuário"
+              className="w-10 h-10 rounded-full object-cover cursor-pointer border-2 border-slate-200 hover:border-blue-800 transition-colors duration-200"
+            />
+          </button>
+        ) : (
+          <a
+            href="/login"
+            className="bg-blue-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200"
+          >
+            Entrar
+          </a>
+        )}
 
-        <div
-          className={`absolute right-0 mt-2 w-40 bg-white border border-slate-200 rounded-lg shadow-md py-2 z-10 transition-all duration-300 origin-top-right ${
-            isDropdownOpen
-              ? "opacity-100 scale-100 translate-y-0"
-              : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-          }`}
-        >
-          <a
-            href="#perfil"
-            className="block px-4 py-2 text-slate-800 hover:bg-slate-100 hover:text-blue-800 transition-colors duration-200"
+        {user && (
+          <div
+            className={`absolute right-0 mt-2 w-40 bg-white border border-slate-200 rounded-lg shadow-md py-2 z-10 transition-all duration-300 origin-top-right ${
+              isDropdownOpen
+                ? "opacity-100 scale-100 translate-y-0"
+                : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+            }`}
           >
-            Meu Perfil
-          </a>
-          <a
-            href="#configuracoes"
-            className="block px-4 py-2 text-slate-800 hover:bg-slate-100 hover:text-blue-800 transition-colors duration-200"
-          >
-            Configurações
-          </a>
-          <hr className="my-1 border-slate-200" />
-          <a
-            href="/"
-            className="block px-4 py-2 text-slate-800 hover:bg-slate-100 hover:text-blue-800 transition-colors duration-200"
-          >
-            Sair
-          </a>
-        </div>
+          {user ? (
+            <>
+              <div className="px-4 py-2 text-sm text-slate-600 border-b border-slate-200">
+                {user.user_metadata?.full_name || user.email}
+              </div>
+              <a
+                href="/dashboard"
+                className="block px-4 py-2 text-slate-800 hover:bg-slate-100 hover:text-blue-800 transition-colors duration-200"
+              >
+                Painel
+              </a>
+              <a
+                href="#perfil"
+                className="block px-4 py-2 text-slate-800 hover:bg-slate-100 hover:text-blue-800 transition-colors duration-200"
+              >
+                Meu Perfil
+              </a>
+              <a
+                href="#configuracoes"
+                className="block px-4 py-2 text-slate-800 hover:bg-slate-100 hover:text-blue-800 transition-colors duration-200"
+              >
+                Configurações
+              </a>
+              <hr className="my-1 border-slate-200" />
+              <button
+                onClick={async () => {
+                  await signOut();
+                  navigate('/');
+                }}
+                className="block w-full text-left px-4 py-2 text-slate-800 hover:bg-slate-100 hover:text-blue-800 transition-colors duration-200"
+              >
+                Sair
+              </button>
+            </>
+          ) : (
+            <>
+              <a
+                href="/login"
+                className="block px-4 py-2 text-slate-800 hover:bg-slate-100 hover:text-blue-800 transition-colors duration-200"
+              >
+                Entrar
+              </a>
+              <a
+                href="/cadastro"
+                className="block px-4 py-2 text-slate-800 hover:bg-slate-100 hover:text-blue-800 transition-colors duration-200"
+              >
+                Cadastrar
+              </a>
+            </>
+          )}
+          </div>
+        )}
       </div>
     </nav>
   );
