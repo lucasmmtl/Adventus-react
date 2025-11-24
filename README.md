@@ -11,19 +11,25 @@ Versão React do projeto Adventus com TailwindCSS.
    npm install
    ```
 
-2. **Copiar imagens:**
+2. **Configurar Supabase:**
+   - Crie um projeto no [Supabase](https://supabase.com)
+   - Copie `.env.example` para `.env`
+   - Adicione suas credenciais do Supabase no arquivo `.env`
+   - Execute o SQL em `supabase-schema.sql` no SQL Editor do Supabase
+
+3. **Copiar imagens:**
    Copie as imagens da pasta `img/` original para `public/img/`:
    - Adventus.png
    - Adventus-Logo.png
    - Hand coding.gif
    - usuario.png
 
-3. **Executar em desenvolvimento:**
+4. **Executar em desenvolvimento:**
    ```bash
    npm run dev
    ```
 
-4. **Build para produção:**
+5. **Build para produção:**
    ```bash
    npm run build
    ```
@@ -94,6 +100,7 @@ src/
 - **React Router DOM** para navegação
 - **TailwindCSS** para estilização
 - **Vite** como bundler
+- **Supabase** para backend e autenticação
 - **Font Awesome** para ícones
 - **Google Fonts (Inter)** para tipografia
 
@@ -106,10 +113,14 @@ Todos os componentes são totalmente responsivos usando as classes utilitárias 
 
 ## 🎯 Funcionalidades
 
-- ✅ Sistema de login e cadastro com validação
+- ✅ Sistema de autenticação com Supabase
+- ✅ Login e cadastro com validação
 - ✅ Navegação com dropdown de usuário
 - ✅ Páginas responsivas
 - ✅ Componentes reutilizáveis
 - ✅ Formulários com validação
 - ✅ Design system consistente
 - ✅ Animações e transições suaves
+- ✅ Integração com banco de dados
+- ✅ Sistema de posts e likes
+- ✅ Gerenciamento de amizades

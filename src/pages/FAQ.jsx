@@ -62,10 +62,10 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="font-inter text-slate-800 bg-slate-100">
+    <div className="font-inter text-slate-800 bg-slate-100 min-h-screen flex flex-col">
       <Navbar />
       
-      <main>
+      <main className="flex-1">
         <div className="max-w-6xl mx-auto px-8 py-32 text-center">
           <h1 className="text-4xl lg:text-6xl font-bold text-slate-800 mb-4">
             Perguntas Frequentes

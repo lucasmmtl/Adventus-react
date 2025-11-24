@@ -37,10 +37,10 @@ const Principal = () => {
   ];
 
   return (
-    <div className="font-inter text-slate-800 bg-slate-100">
+    <div className="font-inter text-slate-800 bg-slate-100 min-h-screen flex flex-col">
       <Navbar />
       
-      <main>
+      <main className="flex-1">
         <section className="grid grid-cols-1 lg:grid-cols-2 items-center gap-16 max-w-6xl mx-auto px-8 py-32 min-h-[calc(100vh-200px)]">
           <div className="flex flex-col gap-6">
             <h1 className="text-4xl lg:text-6xl font-bold text-slate-800 leading-tight">
